@@ -55,17 +55,20 @@ const CrearCardInfo = (carrito) => {
     ul.classList.add("list-group", "list-group-flush");
 
     const li1 = document.createElement("li");
-    li1.classList.add("list-group-item");
+    li1.classList.add("list-group-item", "tituloInfo");
     li1.textContent = `RESUMEN DE COMPRA`;
     ul.appendChild(li1);
 
     const li2 = document.createElement("li");
-    li2.classList.add("list-group-item");
-    li2.textContent = `Total productos: ${totalItems === 0 ? 'El carrito esta vacio' : totalItems}`;
+    li2.classList.add("list-group-item", "cantidadInfo");
+    if (totalItems === 0) {
+        li2.classList.add("text-danger");
+    }
+    li2.innerHTML = `<b class="text-black">Total productos: </b>${totalItems === 0 ? 'El carrito esta vacio' : totalItems}`;
     ul.appendChild(li2);
 
     const cardFooter = document.createElement("div");
-    cardFooter.classList.add("card-footer");
+    cardFooter.classList.add("card-footer", "cantidadInfo");
     cardFooter.innerHTML = `<b>Total a pagar: $${precioFormateado}</b>`;
 
     card.appendChild(ul);

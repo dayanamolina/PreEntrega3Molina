@@ -41,3 +41,19 @@
     font-size: 14px; /* Tamaño de fuente deseado */
     margin: 0 10px; /* Espaciado horizontal */
 }
+
+.tituloInfo {
+    font-size: 30px;
+}
+
+.cantidadInfo {
+    font-size: 20px;
+}
+
+.text-danger {
+    color: red;
+}
+
+.text-black{
+    color: black;
+}
