@@ -1,0 +1,43 @@
+.accordion-button:focus {
+    box-shadow: none;
+    background-color: transparent; 
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+.precio-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+.custom-btn {
+    width: 40px; /* Ancho deseado para los botones */
+    height: 40px; /* Altura deseada para los botones */
+    font-size: 14px; /* Tamaño de fuente deseado para los botones */
+    text-align: center;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-span {
+    font-size: 14px; /* Tamaño de fuente deseado */
+    margin: 0 10px; /* Espaciado horizontal */
+}
