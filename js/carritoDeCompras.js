@@ -1,3 +1,27 @@
+
+function mostrarAlertaArtAgregado() {
+    const alerta = document.getElementById('alertAgregar');
+    alerta.style.visibility = 'visible';
+}
+
+
+function ocultarAlertaArtAgregado() {
+    const alerta = document.getElementById('alertAgregar');
+    alerta.style.visibility = 'hidden';
+}
+
+function mostrarAlertaArtQuitado() {
+    const alerta = document.getElementById('alertQuitar');
+    alerta.style.visibility = 'visible';
+}
+
+
+function ocultarAlertaArtQuitado() {
+    const alerta = document.getElementById('alertQuitar');
+    alerta.style.visibility = 'hidden';
+}
+
+
 const CrearCarrito = (carrito) => {
     const cardsContainer = document.getElementById("CarritoComprasCards");
     cardsContainer.innerHTML = '';
@@ -43,7 +67,6 @@ const CrearCardInfo = (carrito) => {
     const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
     const totalAPagar = carrito.reduce((total, item) => total + item.total, 0);
     const precioFormateado = totalAPagar.toLocaleString('es-ES');
-    // carrito.forEach((item, index) => {
     const cardInfoContainer = document.createElement("div");
 
     cardInfoContainer.id = `cardInfoId`;
@@ -111,7 +134,11 @@ const AumentarCantidad = (itemIndex) => {
         spanCarrito.textContent = totalItems;
         CrearCardInfo(carritoDeCompras);
     }
+    mostrarAlertaArtAgregado()
 
+    setTimeout(() => {
+        ocultarAlertaArtAgregado()
+    }, 3000);
     
 };
 
@@ -149,6 +176,12 @@ const DisminuirCantidad = (itemIndex) => {
         localStorage.setItem('carritoDeCompras', JSON.stringify(carritoDeCompras))
         CrearCarrito(carritoDeCompras);
     }
+
+    mostrarAlertaArtQuitado()
+
+    setTimeout(() => {
+        ocultarAlertaArtQuitado()
+    }, 3000);
 };
 
 

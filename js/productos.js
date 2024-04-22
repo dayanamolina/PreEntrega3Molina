@@ -1,6 +1,16 @@
-//Evento que se ejecuta cuando se carga el DOM
 let carritoDeCompras = [];
 const spanCarrito = document.getElementById('spanCarrito');
+
+function mostrarAlerta() {
+    const alerta = document.querySelector('.custom-alert');
+    alerta.style.visibility = 'visible';
+}
+
+// Función para ocultar el alert
+function ocultarAlerta() {
+    const alerta = document.querySelector('.custom-alert');
+    alerta.style.visibility = 'hidden';
+}
 
 const AgregarAlCarrito = (productoIndex) => {
     const producto = arrayProductos[productoIndex]
@@ -19,10 +29,13 @@ const AgregarAlCarrito = (productoIndex) => {
                 total: producto.precio
             });
         }
-
-        // carritoDeCompras.push(producto)
         console.log(carritoDeComprasJSON);
-        localStorage.setItem('carritoDeCompras', JSON.stringify(carritoDeComprasJSON))
+        localStorage.setItem('carritoDeCompras', JSON.stringify(carritoDeComprasJSON));
+        mostrarAlerta()
+
+        setTimeout(() => {
+            ocultarAlerta()
+        }, 3000);
     } else {
         const carritoItem = carritoDeCompras.find(item => item?.producto.nombre === producto.nombre);
 
@@ -36,10 +49,13 @@ const AgregarAlCarrito = (productoIndex) => {
                 total: producto.precio
             });
         }
-
-        // carritoDeCompras.push(producto)
         console.log(carritoDeCompras);
         localStorage.setItem('carritoDeCompras', JSON.stringify(carritoDeCompras))
+        mostrarAlerta()
+
+        setTimeout(() => {
+            ocultarAlerta()
+        }, 3000);
     }
 
 
