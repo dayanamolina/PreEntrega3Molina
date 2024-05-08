@@ -13,20 +13,21 @@ function ocultarAlerta() {
 }
 
 const AgregarAlCarrito = (productoIndex) => {
-    const producto = arrayProductos[productoIndex]
+    const arrayProductosStorage = JSON.parse(localStorage.getItem("arrayProductos"));
+    const producto = arrayProductosStorage[productoIndex]
     console.log(producto);
     const carritoDeComprasJSON = JSON.parse(localStorage.getItem("carritoDeCompras"));
     if (carritoDeComprasJSON) {
-        const carritoItem = carritoDeComprasJSON.find(item => item?.producto.nombre === producto.nombre);
+        const carritoItem = carritoDeComprasJSON.find(item => item?.producto.title === producto.title);
 
         if (carritoItem) {
             carritoItem.cantidad++;
-            carritoItem.total = carritoItem.cantidad * producto.precio
+            carritoItem.total = carritoItem.cantidad * producto.price
         } else {
             carritoDeComprasJSON.push({
                 producto: producto,
                 cantidad: 1,
-                total: producto.precio
+                total: producto.price
             });
         }
         console.log(carritoDeComprasJSON);
@@ -37,16 +38,17 @@ const AgregarAlCarrito = (productoIndex) => {
             ocultarAlerta()
         }, 3000);
     } else {
-        const carritoItem = carritoDeCompras.find(item => item?.producto.nombre === producto.nombre);
+        const carritoItem = carritoDeCompras.find(item => item?.producto.title === producto.title);
 
         if (carritoItem) {
+            console.log(producto.price);
             carritoItem.cantidad++;
-            carritoItem.total = carritoItem.cantidad * producto.precio
+            carritoItem.total = carritoItem.cantidad * producto.price
         } else {
             carritoDeCompras.push({
                 producto: producto,
                 cantidad: 1,
-                total: producto.precio
+                total: producto.price
             });
         }
         console.log(carritoDeCompras);
@@ -68,7 +70,21 @@ const AgregarAlCarrito = (productoIndex) => {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function () {
+
+
+document.addEventListener('DOMContentLoaded', async function () {
+    let arrayProductos = [];
+
+    try {
+        const response = await fetch("https://fakestoreapi.com/products/category/women's clothing?limit=8");
+        arrayProductos = await response.json();
+        localStorage.setItem('arrayProductos', JSON.stringify(arrayProductos));
+        console.log(arrayProductos);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        return;
+    }
+
     const carrito = JSON.parse(localStorage.getItem("carritoDeCompras"));
 
     if (carrito && spanCarrito) {
@@ -84,18 +100,19 @@ document.addEventListener('DOMContentLoaded', function () {
     arrayProductos.forEach((producto, index) => {
         const colDiv = document.createElement("div");
         colDiv.classList.add("col");
+        console.log(producto.image);
 
         //Se formatea el precio para que lo muestre con .
-        const precioFormateado = producto.precio.toLocaleString('es-ES');
+        const precioFormateado = producto.price.toLocaleString('es-ES');
 
         colDiv.innerHTML = `
         <div class="card">
-            <img src="${producto.urlImagen}" height="300" class="card-img-top" alt="...">
+            <img src="${producto.image}" height="300" class="card-img-top" alt="...">
             <div class="precio-overlay">
                 $ ${precioFormateado}
             </div>
             <div class="card-body">
-                <h5 class="card-title">${producto.nombre}</h5>
+                <h5 class="card-title">${producto.title}</h5>
                 <div class="accordion mt-3 mb-4" id="accordionExample1">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -108,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div id="collapse${index}" class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample1" style="background-color: #fff;">
                             <div class="accordion-body">
-                                ${producto.descripcion}
+                                ${producto.description}
                             </div>
                         </div>
                     </div>
