@@ -74,7 +74,6 @@ const AgregarAlCarrito = (productoIndex) => {
 
 document.addEventListener('DOMContentLoaded', async function () {
     let arrayProductos = [];
-    document.getElementById('spinner').style.display = 'block';
     try {
         const response = await fetch("https://fakestoreapi.com/products/category/women's clothing?limit=8");
         arrayProductos = await response.json();
