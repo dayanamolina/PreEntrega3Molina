@@ -83,8 +83,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
         console.error('Error fetching products:', error);
         return;
-    } finally {
-        document.getElementById('spinner').style.display = 'none';
     }
 
     const carrito = JSON.parse(localStorage.getItem("carritoDeCompras"));
