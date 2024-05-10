@@ -61,6 +61,20 @@ const CrearCarrito = (carrito) => {
 
 }
 
+const procesarPago = (precioTotal) => {
+    Swal.fire({
+        title: 'Confirmación de pago',
+        text: 'Pago realizado con éxito, total abonado $' + precioTotal,
+        icon: 'info',
+        confirmButtonText: 'Aceptar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.removeItem("carritoDeCompras");
+            window.location.href = './productos.html';
+        }
+    });
+}
+
 const CrearCardInfo = (carrito) => {
 
     const existeCardInfo = document.getElementById("cardInfoId");
@@ -103,8 +117,27 @@ const CrearCardInfo = (carrito) => {
 
         cardInfoContainer.appendChild(card);
 
+        console.log(precioFormateado);
+
+        if (totalItems !== 0) {
+            const btnContainer = document.createElement("div");
+            btnContainer.classList.add("mt-4");
+        
+            const btn = document.createElement("button");
+            btn.classList.add("btn", "btn-primary", "w-100", "btn-pagar");
+            btn.textContent = "Pagar";
+            btn.onclick = function() {
+                procesarPago(precioFormateado);
+            };
+            btnContainer.appendChild(btn);
+        
+            cardInfoContainer.appendChild(btnContainer);
+        }
+
         const cardsContainer = document.getElementById("containerId");
         cardsContainer.appendChild(cardInfoContainer);
+
+        
     }
 
 }
